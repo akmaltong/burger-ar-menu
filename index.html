@@ -19,7 +19,7 @@
     body {
       margin: 0;
       overflow: hidden;
-      background: #000;
+      background: black;
     }
   </style>
 </head>
@@ -28,17 +28,16 @@
   <a-scene
     embedded
     vr-mode-ui="enabled: false"
-    renderer="logarithmicDepthBuffer: true"
-    arjs="sourceType: webcam; debugUIEnabled: false;"
+    renderer="antialias: true; alpha: true"
+    arjs="sourceType: webcam; debugUIEnabled: false; videoTexture: true;"
   >
 
     <!-- Burger 1 -->
     <a-marker type="pattern" url="js/markers/burger1.patt">
       <a-entity
         gltf-model="models/gltf/burger1.gltf"
-        position="0 0 0"
-        rotation="0 180 0"
         scale="0.8 0.8 0.8"
+        rotation="0 180 0"
       ></a-entity>
     </a-marker>
 
@@ -46,9 +45,8 @@
     <a-marker type="pattern" url="js/markers/burger2.patt">
       <a-entity
         gltf-model="models/gltf/burger2.gltf"
-        position="0 0 0"
-        rotation="0 180 0"
         scale="0.8 0.8 0.8"
+        rotation="0 180 0"
       ></a-entity>
     </a-marker>
 
@@ -56,47 +54,18 @@
     <a-marker type="pattern" url="js/markers/burger3.patt">
       <a-entity
         gltf-model="models/gltf/burger3.gltf"
-        position="0 0 0"
-        rotation="0 180 0"
         scale="0.8 0.8 0.8"
+        rotation="0 180 0"
       ></a-entity>
     </a-marker>
 
-    <!-- Burger 4 -->
-    <a-marker type="pattern" url="js/markers/burger4.patt">
-      <a-entity
-        gltf-model="models/gltf/burger4.gltf"
-        position="0 0 0"
-        rotation="0 180 0"
-        scale="0.8 0.8 0.8"
-      ></a-entity>
-    </a-marker>
-
-    <!-- Burger 5 -->
-    <a-marker type="pattern" url="js/markers/burger5.patt">
-      <a-entity
-        gltf-model="models/gltf/burger5.gltf"
-        position="0 0 0"
-        rotation="0 180 0"
-        scale="0.8 0.8 0.8"
-      ></a-entity>
-    </a-marker>
-
-    <!-- Burger 6 -->
-    <a-marker type="pattern" url="js/markers/burger6.patt">
-      <a-entity
-        gltf-model="models/gltf/burger6.gltf"
-        position="0 0 0"
-        rotation="0 180 0"
-        scale="0.8 0.8 0.8"
-      ></a-entity>
-    </a-marker>
-
-    <!-- Camera -->
-    <a-camera
+    <!-- Camera FIX -->
+    <a-entity
+      camera
+      arjs-camera
       position="0 0 0"
       look-controls="enabled: false"
-    ></a-camera>
+    ></a-entity>
 
   </a-scene>
 </body>
