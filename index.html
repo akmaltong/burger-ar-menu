@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>AR TEST</title>
+  <title>AR GLTF SAFE TEST</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
@@ -25,12 +25,17 @@
     arjs="sourceType: webcam;"
   >
 
-    <!-- HIRO + КУБ -->
+    <!-- СВЕТ (минимум, но обязателен для GLTF) -->
+    <a-light type="ambient" intensity="1.2"></a-light>
+    <a-light type="directional" position="1 2 1"></a-light>
+
+    <!-- HIRO + GLTF -->
     <a-marker preset="hiro">
-      <a-box
-        position="0 0.5 0"
-        material="color: red;"
-      ></a-box>
+      <a-entity
+        gltf-model="https://cdn.aframe.io/test-models/models/glTF/Duck/glTF/Duck.gltf"
+        scale="0.05 0.05 0.05"
+        rotation="0 180 0"
+      ></a-entity>
     </a-marker>
 
     <!-- КАМЕРА -->
