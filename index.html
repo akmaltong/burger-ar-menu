@@ -1,40 +1,15 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <title>AR GLTF TEST</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<a-scene embedded arjs="sourceType: webcam;">
+  
+  <a-light type="ambient" intensity="1.2"></a-light>
+  <a-light type="directional" position="1 2 1"></a-light>
 
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+  <a-marker preset="hiro">
+    <a-entity
+      gltf-model="models/gltf/burger1.gltf"
+      scale="0.05 0.05 0.05"
+      rotation="0 180 0"
+    ></a-entity>
+  </a-marker>
 
-  <style>
-    body { margin: 0; overflow: hidden; }
-  </style>
-</head>
-
-<body>
-  <a-scene
-    embedded
-    vr-mode-ui="enabled: false"
-    arjs="sourceType: webcam; debugUIEnabled: true;"
-  >
-
-    <!-- СВЕТ (обязательно) -->
-    <a-light type="ambient" intensity="1.2"></a-light>
-    <a-light type="directional" position="1 2 1"></a-light>
-
-    <!-- HIRO -->
-    <a-marker preset="hiro">
-      <a-entity
-        gltf-model="https://cdn.aframe.io/test-models/models/glTF/Duck/glTF/Duck.gltf"
-        scale="0.05 0.05 0.05"
-        rotation="0 180 0"
-      ></a-entity>
-    </a-marker>
-
-    <a-entity camera arjs-camera></a-entity>
-
-  </a-scene>
-</body>
-</html>
+  <a-entity camera arjs-camera></a-entity>
+</a-scene>
