@@ -1,34 +1,21 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
   <meta charset="utf-8">
-  <title>Burger AR Menu</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
-
-  <style> body { margin: 0; overflow: hidden; background: #000; } </style>
 </head>
-<body>
-  <a-scene
-    embedded
-    renderer="logarithmicDepthBuffer: true;"
-    arjs="sourceType: webcam; debugUIEnabled: true;">
+<body style="margin:0;overflow:hidden">
+  <a-scene embedded arjs="sourceType: webcam;">
     
-    <!-- ТЕСТ: Hiro (должен работать) -->
+    <!-- Hiro для проверки -->
     <a-marker preset="hiro">
       <a-box position="0 0.5 0" color="red"></a-box>
     </a-marker>
 
-    <!-- Burger 1 (простой кубик сначала) -->
+    <!-- Burger 1 - ТОЛЬКО ОДИН для теста -->
     <a-marker type="pattern" url="js/markers/burger1.patt">
       <a-box position="0 0.5 0" color="lime"></a-box>
-    </a-marker>
-
-    <!-- Burger 2 -->
-    <a-marker type="pattern" url="js/markers/burger2.patt">
-      <a-box position="0 0.5 0" color="cyan"></a-box>
     </a-marker>
 
     <a-entity camera></a-entity>
