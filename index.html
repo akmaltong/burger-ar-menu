@@ -1,76 +1,52 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
   <meta charset="utf-8">
-  <title>Burger AR Menu</title>
+  <title>Burger AR</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
+  
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
-
-  <style>
-    body { margin: 0; overflow: hidden; background: #000; }
-  </style>
+  
+  <style> body { margin: 0; overflow: hidden; background: #000; } </style>
 </head>
 <body>
   <a-scene
     embedded
-    vr-mode-ui="enabled: false"
-    renderer="logarithmicDepthBuffer: true;"
-    arjs="sourceType: webcam; debugUIEnabled: false;">
+    arjs="sourceType: webcam; 
+          detectionMode: mono; 
+          matrixCodeType: 3x3; 
+          patternRatio: 0.5; 
+          debugUIEnabled: true;">
     
     <!-- Burger 1 -->
     <a-marker type="pattern" url="js/markers/burger1.patt">
-      <a-entity gltf-model="models/gltf/burger1.gltf" 
-                position="0 0 0" 
-                scale="0.8 0.8 0.8"
-                rotation="0 180 0">
-      </a-entity>
+      <a-box position="0 0.5 0" color="lime" depth="0.2"></a-box>
     </a-marker>
 
     <!-- Burger 2 -->
     <a-marker type="pattern" url="js/markers/burger2.patt">
-      <a-entity gltf-model="models/gltf/burger2.gltf" 
-                position="0 0 0" 
-                scale="0.8 0.8 0.8"
-                rotation="0 180 0">
-      </a-entity>
+      <a-box position="0 0.5 0" color="cyan" depth="0.2"></a-box>
     </a-marker>
 
     <!-- Burger 3 -->
     <a-marker type="pattern" url="js/markers/burger3.patt">
-      <a-entity gltf-model="models/gltf/burger3.gltf" 
-                position="0 0 0" 
-                scale="0.8 0.8 0.8"
-                rotation="0 180 0">
-      </a-entity>
+      <a-box position="0 0.5 0" color="yellow" depth="0.2"></a-box>
     </a-marker>
 
     <!-- Burger 4 -->
-    <a-marker type="pattern" url="js/markers/burger4.ptt">
-      <a-entity gltf-model="models/gltf/burger4.gltf" 
-                position="0 0 0" 
-                scale="0.8 0.8 0.8"
-                rotation="0 180 0">
-      </a-entity>
+    <a-marker type="pattern" url="js/markers/burger4.patt">
+      <a-box position="0 0.5 0" color="magenta" depth="0.2"></a-box>
     </a-marker>
 
     <!-- Burger 5 -->
     <a-marker type="pattern" url="js/markers/burger5.patt">
-      <a-entity gltf-model="models/gltf/burger5.gltf" 
-                position="0 0 0" 
-                scale="0.8 0.8 0.8"
-                rotation="0 180 0">
-      </a-entity>
+      <a-box position="0 0.5 0" color="orange" depth="0.2"></a-box>
     </a-marker>
 
     <!-- Burger 6 -->
     <a-marker type="pattern" url="js/markers/burger6.patt">
-      <a-entity gltf-model="models/gltf/burger6.gltf" 
-                position="0 0 0" 
-                scale="0.8 0.8 0.8"
-                rotation="0 180 0">
-      </a-entity>
+      <a-box position="0 0.5 0" color="purple" depth="0.2"></a-box>
     </a-marker>
 
     <a-entity camera></a-entity>
