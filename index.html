@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Burger AR - Adjustable Scale</title>
+    <title>Burger AR - Stable Pro</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <style>
@@ -13,43 +13,42 @@
         display: flex; gap: 10px; z-index: 20;
       }
       button {
-        padding: 15px 25px; font-size: 18px; background: rgba(255,255,255,0.8);
-        border: none; border-radius: 10px; cursor: pointer;
-      }
-      #status {
-        position: absolute; top: 10px; width: 100%; text-align: center;
-        z-index: 10; color: white; background: rgba(0,0,0,0.5); padding: 5px 0;
+        padding: 12px 20px; font-size: 16px; background: rgba(255,255,255,0.9);
+        border: none; border-radius: 8px; font-weight: bold;
       }
     </style>
   </head>
 
   <body>
-    <div id="status">Наведи на HIRO. Если пусто — нажми на экран.</div>
-    
     <div class="controls">
-      <button onclick="changeScale(1.2)">Больше +</button>
-      <button onclick="changeScale(0.8)">Меньше -</button>
+      <button onclick="changeScale(1.1)">Увеличить +</button>
+      <button onclick="changeScale(0.9)">Уменьшить -</button>
     </div>
 
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-      <a-marker preset="hiro">
+    <a-scene 
+      embedded 
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; smooth: true; smoothCount: 10; smoothThreshold: 5;"
+      renderer="logarithmicDepthBuffer: true; antialias: true; precision: medium;">
+
+      <a-marker preset="hiro" smooth="true" smoothCount="10" smoothThreshold="5">
+        
         <a-entity light="type: ambient; intensity: 1.5;"></a-entity>
         <a-entity light="type: directional; intensity: 1;" position="1 4 3"></a-entity>
 
         <a-entity
           id="burger-model"
           gltf-model="./models/glb/burger2.glb" 
-          scale="2.05 2.05 2.05" 
+          scale="3.05 3.05 3.05" 
           position="0 0 0"
-          rotation="0 0 0"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
+          rotation="0 0 0">
         </a-entity>
+        
       </a-marker>
+
       <a-entity camera></a-entity>
     </a-scene>
 
     <script>
-      // Функция изменения размера кнопками
       function changeScale(factor) {
         const model = document.querySelector('#burger-model');
         const currentScale = model.getAttribute('scale');
@@ -60,7 +59,6 @@
         });
       }
 
-      // Запуск видео по клику
       window.addEventListener('click', function () {
         const video = document.querySelector('#arjs-video');
         if (video) video.play();
@@ -68,4 +66,3 @@
     </script>
   </body>
 </html>
-
