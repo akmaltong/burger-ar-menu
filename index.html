@@ -1,67 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-  <title>AR Burger Menu</title>
+  <title>AR.js Hiro Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <!-- AR.js для A-Frame (последняя стабильная) -->
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+
   <style>
-    body { margin: 0; overflow: hidden; background: #000; }
-    #arjs-video {
-      transform: scaleX(-1); /* Исправляет зеркальное отображение */
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+      background: #000;
     }
+    /* A-Frame сам создаёт <canvas> и <video>, стилизовать вручную не нужно */
   </style>
 </head>
 <body>
-  <!-- A-Frame + AR.js -->
-  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.min.js"></script>
-
-  <a-scene 
+  <!--
+    arjs:
+      sourceType: webcam          - бери вебкамеру / камеру телефона
+      facingMode: environment     - задняя камера на телефоне
+      debugUIEnabled: false       - отключаем дебаг-панель
+  -->
+  <a-scene
+    embedded
     vr-mode-ui="enabled: false"
-    arjs="sourceType: webcam; sourceWidth:1280; sourceHeight:720; displayWidth:1280; displayHeight:720; debugUIEnabled: false;"
     renderer="logarithmicDepthBuffer: true;"
-  >
-    <!-- Маркер 1 -->
-    <a-marker type="pattern" url="js/markers/burger1.patt">
-      <a-entity gltf-model="models/gltf/burger1.gltf" scale="5 5 5" position="0 0 0"></a-entity>
-    </a-marker>
+    arjs="sourceType: webcam; facingMode: environment; debugUIEnabled: false;">
     
-    <!-- Маркер 2 -->
-    <a-marker type="pattern" url="js/markers/burger2.patt">
-      <a-entity gltf-model="models/gltf/burger2.gltf" scale="5 5 5" position="0 0 0"></a-entity>
-    </a-marker>
-    
-    <!-- Маркер 3 -->
-    <a-marker type="pattern" url="js/markers/burger3.patt">
-      <a-entity gltf-model="models/gltf/burger3.gltf" scale="5 5 5" position="0 0 0"></a-entity>
-    </a-marker>
-    
-    <!-- Маркер 4 -->
-    <a-marker type="pattern" url="js/markers/burger4.patt">
-      <a-entity gltf-model="models/gltf/burger4.gltf" scale="5 5 5" position="0 0 0"></a-entity>
-    </a-marker>
-    
-    <!-- Маркер 5 -->
-    <a-marker type="pattern" url="js/markers/burger5.patt">
-      <a-entity gltf-model="models/gltf/burger5.gltf" scale="5 5 5" position="0 0 0"></a-entity>
-    </a-marker>
-    
-    <!-- Маркер 6 -->
-    <a-marker type="pattern" url="js/markers/burger6.patt">
-      <a-entity gltf-model="models/gltf/burger6.gltf" scale="5 5 5" position="0 0 0"></a-entity>
+    <!-- Hiro-маркер (встроенный пресет) -->
+    <a-marker preset="hiro">
+      <!-- Любой объект, чтобы видно было, что трекинг работает -->
+      <a-box position="0 0.5 0" material="color: red;"></a-box>
+      <a-text value="HIRO" position="-0.5 1 0" color="#FFFFFF"></a-text>
     </a-marker>
 
+    <!-- Камера -->
     <a-entity camera></a-entity>
   </a-scene>
-
-  <script>
-    // Исправление зеркального отображения
-    document.addEventListener('DOMContentLoaded', () => {
-      const video = document.querySelector('#arjs-video');
-      if (video) {
-        video.style.transform = 'scaleX(-1)';
-      }
-    });
-  </script>
 </body>
 </html>
