@@ -1,52 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>Burger AR</title>
+  <title>Burger AR Menu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  
+
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
-  
+
   <style> body { margin: 0; overflow: hidden; background: #000; } </style>
 </head>
 <body>
   <a-scene
     embedded
-    arjs="sourceType: webcam; 
-          detectionMode: mono; 
-          matrixCodeType: 3x3; 
-          patternRatio: 0.5; 
-          debugUIEnabled: true;">
+    renderer="logarithmicDepthBuffer: true;"
+    arjs="sourceType: webcam; debugUIEnabled: true;">
     
-    <!-- Burger 1 -->
+    <!-- ТЕСТ: Hiro (должен работать) -->
+    <a-marker preset="hiro">
+      <a-box position="0 0.5 0" color="red"></a-box>
+    </a-marker>
+
+    <!-- Burger 1 (простой кубик сначала) -->
     <a-marker type="pattern" url="js/markers/burger1.patt">
-      <a-box position="0 0.5 0" color="lime" depth="0.2"></a-box>
+      <a-box position="0 0.5 0" color="lime"></a-box>
     </a-marker>
 
     <!-- Burger 2 -->
     <a-marker type="pattern" url="js/markers/burger2.patt">
-      <a-box position="0 0.5 0" color="cyan" depth="0.2"></a-box>
-    </a-marker>
-
-    <!-- Burger 3 -->
-    <a-marker type="pattern" url="js/markers/burger3.patt">
-      <a-box position="0 0.5 0" color="yellow" depth="0.2"></a-box>
-    </a-marker>
-
-    <!-- Burger 4 -->
-    <a-marker type="pattern" url="js/markers/burger4.patt">
-      <a-box position="0 0.5 0" color="magenta" depth="0.2"></a-box>
-    </a-marker>
-
-    <!-- Burger 5 -->
-    <a-marker type="pattern" url="js/markers/burger5.patt">
-      <a-box position="0 0.5 0" color="orange" depth="0.2"></a-box>
-    </a-marker>
-
-    <!-- Burger 6 -->
-    <a-marker type="pattern" url="js/markers/burger6.patt">
-      <a-box position="0 0.5 0" color="purple" depth="0.2"></a-box>
+      <a-box position="0 0.5 0" color="cyan"></a-box>
     </a-marker>
 
     <a-entity camera></a-entity>
