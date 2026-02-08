@@ -56,9 +56,15 @@
   <div id="ar-container"></div>
   <div id="instructions">Наведите камеру на маркер в меню</div>
 
-  <!-- Three.js + AR.js -->
+  <!-- Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <!-- GLTFLoader (обязательно!) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js"></script>
+  
+  <!-- AR.js -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar.js"></script>
+  
   <script>
     // Скрыть лоадер через 2 секунды
     setTimeout(() => {
@@ -80,11 +86,11 @@
     const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
     scene.add(ambientLight);
 
-    // Загрузчик GLTF
+    // Загрузчик GLTF (теперь работает!)
     const loader = new THREE.GLTFLoader();
 
     // Функция для создания маркера
-    function createMarker(markerUrl, modelUrl, position) {
+    function createMarker(markerUrl, modelUrl) {
       const markerRoot = new THREE.Group();
       scene.add(markerRoot);
 
@@ -96,6 +102,7 @@
           model.scale.set(0.6, 0.6, 0.6);
           model.position.y = 0.2;
           markerRoot.add(model);
+          console.log('Модель загружена:', modelUrl);
         },
         undefined,
         (error) => {
