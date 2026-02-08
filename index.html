@@ -1,19 +1,103 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <title>AR.js Hiro Test</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8" />
+  <title>Burger AR Menu</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no"
+  />
+
+  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <!-- AR.js -->
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
-  <style>body { margin: 0; overflow: hidden; background: #000; }</style>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+    }
+  </style>
 </head>
+
 <body>
-  <a-scene embedded arjs="sourceType: webcam;">
-    <a-marker preset="hiro">
-      <a-box position="0 0.5 0" color="red"></a-box>
+  <a-scene
+    embedded
+    vr-mode-ui="enabled: false"
+    renderer="logarithmicDepthBuffer: true"
+    arjs="sourceType: webcam; debugUIEnabled: false;"
+  >
+
+    <!-- Burger 1 -->
+    <a-marker type="pattern" url="js/markers/burger1.patt">
+      <a-entity
+        gltf-model="models/gltf/burger1.gltf"
+        position="0 0 0"
+        rotation="0 180 0"
+        scale="0.8 0.8 0.8"
+      ></a-entity>
     </a-marker>
-    <a-entity camera></a-entity>
+
+    <!-- Burger 2 -->
+    <a-marker type="pattern" url="js/markers/burger2.patt">
+      <a-entity
+        gltf-model="models/gltf/burger2.gltf"
+        position="0 0 0"
+        rotation="0 180 0"
+        scale="0.8 0.8 0.8"
+      ></a-entity>
+    </a-marker>
+
+    <!-- Burger 3 -->
+    <a-marker type="pattern" url="js/markers/burger3.patt">
+      <a-entity
+        gltf-model="models/gltf/burger3.gltf"
+        position="0 0 0"
+        rotation="0 180 0"
+        scale="0.8 0.8 0.8"
+      ></a-entity>
+    </a-marker>
+
+    <!-- Burger 4 -->
+    <a-marker type="pattern" url="js/markers/burger4.patt">
+      <a-entity
+        gltf-model="models/gltf/burger4.gltf"
+        position="0 0 0"
+        rotation="0 180 0"
+        scale="0.8 0.8 0.8"
+      ></a-entity>
+    </a-marker>
+
+    <!-- Burger 5 -->
+    <a-marker type="pattern" url="js/markers/burger5.patt">
+      <a-entity
+        gltf-model="models/gltf/burger5.gltf"
+        position="0 0 0"
+        rotation="0 180 0"
+        scale="0.8 0.8 0.8"
+      ></a-entity>
+    </a-marker>
+
+    <!-- Burger 6 -->
+    <a-marker type="pattern" url="js/markers/burger6.patt">
+      <a-entity
+        gltf-model="models/gltf/burger6.gltf"
+        position="0 0 0"
+        rotation="0 180 0"
+        scale="0.8 0.8 0.8"
+      ></a-entity>
+    </a-marker>
+
+    <!-- Camera -->
+    <a-camera
+      position="0 0 0"
+      look-controls="enabled: false"
+    ></a-camera>
+
   </a-scene>
 </body>
 </html>
