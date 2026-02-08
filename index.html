@@ -8,15 +8,22 @@
   </head>
 
   <body style="margin: 0px; overflow: hidden;">
-    <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
+    <a-scene 
+      embedded 
+      arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best;"
+      renderer="logarithmicDepthBuffer: true; antialias: true;">
 
-      <a-marker type='pattern' url='./js/markers/burger1.patt'>
+      <a-marker type="pattern" url="./js/markers/burger1.patt">
         
+        <a-entity light="type: ambient; intensity: 1.5;"></a-entity>
+        <a-entity light="type: directional; castShadow: true; intensity: 0.8;" position="1 1 1"></a-entity>
+
         <a-entity
           gltf-model="./models/glb/burger1.glb"
           scale="1 1 1"
           position="0 0 0"
-          rotation="0 0 0">
+          rotation="0 0 0"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
         </a-entity>
         
       </a-marker>
