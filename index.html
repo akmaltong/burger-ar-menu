@@ -1,1 +1,163 @@
-﻿<!DOCTYPE html><html lang='ru'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1.0'><title>AR Menu</title><style>body{margin:0;overflow:hidden;background:#000}#loading{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;flex-direction:column;justify-content:center;align-items:center;color:white;z-index:1000}#spinner{width:50px;height:50px;border:5px solid rgba(255,255,255,0.3);border-top:5px solid #FF6B35;border-radius:50%;animation:spin 1s linear infinite}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style></head><body><div id='loading'><div id='spinner'></div><h2 style='color:white;margin-top:20px'>Loading AR menu...</h2></div><div id='ar-container'></div><script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'></script><script src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar.js'></script><script>setTimeout(()=>{document.getElementById('loading').style.display='none'},1500)</script></body></html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>AR Меню Бургерной</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    body {
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #000;
+    }
+    #ar-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      z-index: 1000;
+    }
+    #loading h2 {
+      margin-top: 20px;
+      text-align: center;
+    }
+    #instructions {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <h2>Загрузка AR-меню...<br><small>Наведите камеру на маркер</small></h2>
+  </div>
+  <div id="ar-container"></div>
+  <div id="instructions">Наведите камеру на маркер в меню</div>
+
+  <!-- Three.js + AR.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar.js"></script>
+  <script>
+    // Скрыть лоадер через 2 секунды
+    setTimeout(() => {
+      document.getElementById('loading').style.display = 'none';
+    }, 2000);
+
+    // Инициализация сцены
+    const scene = new THREE.Scene();
+    const camera = new THREE.Camera();
+    scene.add(camera);
+
+    // Рендерер
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    document.getElementById('ar-container').appendChild(renderer.domElement);
+
+    // Свет
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+    scene.add(ambientLight);
+
+    // Загрузчик GLTF
+    const loader = new THREE.GLTFLoader();
+
+    // Функция для создания маркера
+    function createMarker(markerUrl, modelUrl, position) {
+      const markerRoot = new THREE.Group();
+      scene.add(markerRoot);
+
+      // Загрузка модели
+      loader.load(
+        modelUrl,
+        (gltf) => {
+          const model = gltf.scene;
+          model.scale.set(0.6, 0.6, 0.6);
+          model.position.y = 0.2;
+          markerRoot.add(model);
+        },
+        undefined,
+        (error) => {
+          console.error('Ошибка загрузки модели:', error);
+        }
+      );
+
+      // Контроллер маркера
+      const markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+        type: 'pattern',
+        patternUrl: markerUrl,
+        changeMatrixMode: 'cameraTransformMatrix'
+      });
+    }
+
+    // Источник AR (камера)
+    const arToolkitSource = new THREEx.ArToolkitSource({
+      sourceType: 'webcam',
+      sourceWidth: window.innerWidth,
+      sourceHeight: window.innerHeight
+    });
+
+    arToolkitSource.init(() => {
+      console.log('Камера готова');
+    });
+
+    // Контекст AR
+    const arToolkitContext = new THREEx.ArToolkitContext({
+      cameraParametersUrl: 'https://raw.githack.com/AR-js-org/AR.js/master/data/camera_para.dat',
+      detectionMode: 'mono'
+    });
+
+    arToolkitContext.init(() => {
+      camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+      
+      // Создаём 6 маркеров
+      for (let i = 1; i <= 6; i++) {
+        createMarker(`js/markers/burger${i}.patt`, `models/gltf/burger${i}.gltf`);
+      }
+    });
+
+    // Обработчик изменения размера
+    window.addEventListener('resize', () => {
+      arToolkitSource.onResize();
+      arToolkitSource.copySizeTo(renderer.domElement);
+      if (arToolkitContext.arController) {
+        arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
+      }
+    });
+
+    // Анимация
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      if (arToolkitSource.ready) {
+        arToolkitContext.update(arToolkitSource.domElement);
+      }
+      
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
