@@ -5,26 +5,27 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
   <title>AR Camera Test</title>
   <style>
-    body { margin: 0; overflow: hidden; }
-    #video {
+    body { margin: 0; overflow: hidden; background: #000; }
+    video {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transform: scaleX(-1); /* Зеркальное отображение, как в зеркале */
     }
   </style>
 </head>
 <body>
-  <video id="video" autoplay playsinline></video>
+  <video autoplay playsinline muted></video>
 
   <script>
-    const video = document.getElementById('video');
+    const video = document.querySelector('video');
 
-    // Запрос доступа к камере
-    navigator.mediaDevices.getUserMedia({ 
-      video: { facingMode: 'environment' } 
+    // Запрос доступа к задней камере
+    navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment' }
     })
     .then(stream => {
       video.srcObject = stream;
