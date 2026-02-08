@@ -3,44 +3,45 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Burger AR - Ultra Stable</title>
+    <title>Burger AR - Dead Sticky</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <style>
       body { margin: 0; overflow: hidden; background: #000; }
-      .ui-panel {
+      .ui {
         position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-        display: flex; gap: 15px; z-index: 100;
+        display: flex; gap: 10px; z-index: 100;
       }
       button {
-        padding: 15px 20px; font-size: 16px; border-radius: 10px; border: none;
-        background: white; color: black; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        padding: 15px; font-size: 16px; border-radius: 8px; border: none;
+        background: white; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.5);
       }
     </style>
   </head>
 
   <body>
-    <div class="ui-panel">
-      <button onclick="adjustScale(0.5)">Больше +</button>
-      <button onclick="adjustScale(-0.5)">Меньше -</button>
+    <div class="ui">
+      <button onclick="changeSize(0.5)">Больше +</button>
+      <button onclick="changeSize(-0.5)">Меньше -</button>
     </div>
 
     <a-scene 
       embedded 
-      arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best; maxDetectionRate: 60; canvasWidth: 1280; canvasHeight: 720;"
-      renderer="logarithmicDepthBuffer: true; antialias: true; precision: high; colorManagement: true;">
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3; trackingMethod: best; maxDetectionRate: 60;"
+      renderer="logarithmicDepthBuffer: true; antialias: true; precision: high;">
 
-      <a-marker preset="hiro" raycaster="objects: .clickable" emitevents="true">
+      <a-marker preset="hiro" smooth="false">
         
         <a-entity light="type: ambient; intensity: 1.5;"></a-entity>
         <a-entity light="type: directional; intensity: 1.2;" position="1 4 3"></a-entity>
 
         <a-entity
-          id="burger-target"
+          id="burger"
           gltf-model="./models/glb/burger2.glb" 
           scale="3.5 3.5 3.5" 
           position="0 0 0"
-          rotation="0 0 0">
+          rotation="0 0 0"
+          animation-mixer="clip: none; loop: once; duration: 0">
         </a-entity>
         
       </a-marker>
@@ -49,16 +50,24 @@
     </a-scene>
 
     <script>
-      // Функция изменения масштаба вручную
-      function adjustScale(delta) {
-        const el = document.querySelector('#burger-target');
+      // Функция изменения масштаба
+      function changeSize(amount) {
+        const el = document.querySelector('#burger');
         const s = el.getAttribute('scale');
-        const newScale = Math.max(0.1, s.x + delta); // Не даем уйти в минус
-        el.setAttribute('scale', {x: newScale, y: newScale, z: newScale});
-        console.log("Current scale:", newScale);
+        const newVal = Math.max(0.1, s.x + amount);
+        el.setAttribute('scale', {x: newVal, y: newVal, z: newVal});
       }
 
-      // Запуск видео потока
+      // Остановка анимации, если модель все равно крутится
+      document.querySelector('#burger').addEventListener('model-loaded', function () {
+        const el = this;
+        // Проверяем наличие встроенных анимаций и ставим их на паузу
+        if (el.components['animation-mixer']) {
+            el.components['animation-mixer'].pause();
+        }
+      });
+
+      // Запуск видеопотока
       window.addEventListener('click', function () {
         const v = document.querySelector('#arjs-video');
         if (v) v.play();
