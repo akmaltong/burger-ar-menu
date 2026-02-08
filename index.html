@@ -2,46 +2,35 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>AR.js Hiro Test</title>
+  <title>AR.js Hiro Debug</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
   <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
-  <!-- AR.js для A-Frame (последняя стабильная) -->
+  <!-- AR.js for A-Frame -->
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
 
   <style>
     body {
       margin: 0;
       overflow: hidden;
-      font-family: sans-serif;
       background: #000;
     }
-    /* A-Frame сам создаёт <canvas> и <video>, стилизовать вручную не нужно */
   </style>
 </head>
 <body>
-  <!--
-    arjs:
-      sourceType: webcam          - бери вебкамеру / камеру телефона
-      facingMode: environment     - задняя камера на телефоне
-      debugUIEnabled: false       - отключаем дебаг-панель
-  -->
   <a-scene
     embedded
     vr-mode-ui="enabled: false"
     renderer="logarithmicDepthBuffer: true;"
-    arjs="sourceType: webcam; facingMode: environment; debugUIEnabled: false;">
+    arjs="sourceType: webcam; facingMode: environment; detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: true;">
     
-    <!-- Hiro-маркер (встроенный пресет) -->
     <a-marker preset="hiro">
-      <!-- Любой объект, чтобы видно было, что трекинг работает -->
-      <a-box position="0 0.5 0" material="color: red;"></a-box>
-      <a-text value="HIRO" position="-0.5 1 0" color="#FFFFFF"></a-text>
+      <a-box position="0 0.5 0" color="red"></a-box>
+      <a-text value="HIRO" position="-0.4 1 0" color="#FFFFFF"></a-text>
     </a-marker>
 
-    <!-- Камера -->
     <a-entity camera></a-entity>
   </a-scene>
 </body>
