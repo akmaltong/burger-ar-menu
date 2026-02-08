@@ -2,19 +2,22 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <title>AR Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
 </head>
 <body style="margin:0;overflow:hidden">
   <a-scene embedded arjs="sourceType: webcam;">
     
-    <!-- Hiro для проверки -->
+    <!-- Hiro -->
     <a-marker preset="hiro">
       <a-box position="0 0.5 0" color="red"></a-box>
     </a-marker>
 
-    <!-- Burger 1 - ТОЛЬКО ОДИН для теста -->
-    <a-marker type="pattern" url="js/markers/burger1.patt">
+    <!-- ТВОЙ Letter A маркер (сохрани как letterA.patt) -->
+    <a-marker type="pattern" url="letterA.patt">
       <a-box position="0 0.5 0" color="lime"></a-box>
     </a-marker>
 
